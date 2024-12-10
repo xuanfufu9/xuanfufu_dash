@@ -5,7 +5,6 @@ from api.monitor.server import ServerApi
 
 def render(*args, **kwargs):
     server_info_res = ServerApi.get_server()
-    print ('render server_info_res:', server_info_res)
     server_info = server_info_res.get('data', {})
     cpu = [
         dict(name=key, value=value)
