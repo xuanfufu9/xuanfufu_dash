@@ -173,11 +173,11 @@ class UserDao:
             )
 
         results = dict(
-            user_basic_info=query_user_basic_info,
-            user_dept_info=query_user_dept_info,
-            user_role_info=query_user_role_info,
-            user_post_info=query_user_post_info,
-            user_menu_info=query_user_menu_info,
+            user_basic_info=query_user_basic_info,  # 用户基本信息
+            user_dept_info=query_user_dept_info,  # 用户部门信息
+            user_role_info=query_user_role_info,  # 用户角色信息
+            user_post_info=query_user_post_info,  # 用户岗位信息
+            user_menu_info=query_user_menu_info,  # 用户菜单信息
         )
 
         return results

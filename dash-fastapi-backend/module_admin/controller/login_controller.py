@@ -78,6 +78,7 @@ async def login(
 
 
 @loginController.get('/getInfo', response_model=CurrentUserModel)
+@Log(title='用户信息', business_type=BusinessType.OTHER, log_type='operation')
 async def get_login_user_info(
     request: Request, current_user: CurrentUserModel = Depends(LoginService.get_current_user)
 ):
@@ -87,6 +88,7 @@ async def get_login_user_info(
 
 
 @loginController.get('/getRouters')
+@Log(title='路由信息', business_type=BusinessType.OTHER, log_type='operation')
 async def get_login_user_routers(
     request: Request,
     current_user: CurrentUserModel = Depends(LoginService.get_current_user),
@@ -99,6 +101,7 @@ async def get_login_user_routers(
 
 
 @loginController.post('/register', response_model=CrudResponseModel)
+@Log(title='用户注册', business_type=BusinessType.OTHER, log_type='operation')
 async def register_user(request: Request, user_register: UserRegister, query_db: AsyncSession = Depends(get_db)):
     user_register_result = await LoginService.register_user_services(request, query_db, user_register)
     logger.info(user_register_result.message)
@@ -107,6 +110,7 @@ async def register_user(request: Request, user_register: UserRegister, query_db:
 
 
 @loginController.post('/getSmsCode', response_model=SmsCode)
+@Log(title='短信验证码', business_type=BusinessType.OTHER, log_type='operation')
 async def get_sms_code(request: Request, user: ResetUserModel, query_db: AsyncSession = Depends(get_db)):
     sms_result = await LoginService.get_sms_code_services(request, query_db, user)
     logger.info('获取成功')
@@ -115,6 +119,7 @@ async def get_sms_code(request: Request, user: ResetUserModel, query_db: AsyncSe
 
 
 @loginController.post('/forgetPwd', response_model=CrudResponseModel)
+@Log(title='忘记密码', business_type=BusinessType.OTHER, log_type='operation')
 async def forget_user_pwd(request: Request, forget_user: ResetUserModel, query_db: AsyncSession = Depends(get_db)):
     forget_user_result = await LoginService.forget_user_services(request, query_db, forget_user)
     logger.info(forget_user_result.message)
@@ -123,6 +128,7 @@ async def forget_user_pwd(request: Request, forget_user: ResetUserModel, query_d
 
 
 @loginController.post('/logout')
+@Log(title='用户退出', business_type=BusinessType.OTHER, log_type='operation')
 async def logout(request: Request, token: Optional[str] = Depends(oauth2_scheme)):
     payload = jwt.decode(
         token, JwtConfig.jwt_secret_key, algorithms=[JwtConfig.jwt_algorithm], options={'verify_exp': False}
