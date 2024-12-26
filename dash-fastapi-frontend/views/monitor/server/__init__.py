@@ -5,10 +5,10 @@ from api.monitor.server import ServerApi
 
 def render(*args, **kwargs):
     server_info_res = ServerApi.get_server()
-    server_info = server_info_res.get('data', {})
+    server_info = server_info_res.get('data')
     cpu = [
         dict(name=key, value=value)
-        for key, value in server_info.get('cpu', {}).items()
+        for key, value in server_info.get('cpu').items()
     ]
     for item in cpu:
         if item.get('name') == 'cpu_num':
@@ -24,7 +24,7 @@ def render(*args, **kwargs):
             item['value'] = f"{item['value']}%"
     mem = [
         dict(name=key, value=value)
-        for key, value in server_info.get('mem', {}).items()
+        for key, value in server_info.get('mem').items()
     ]
     for item in mem:
         if item.get('name') == 'total':

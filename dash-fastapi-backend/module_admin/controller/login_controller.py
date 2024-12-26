@@ -128,7 +128,7 @@ async def forget_user_pwd(request: Request, forget_user: ResetUserModel, query_d
 
 
 @loginController.post('/logout')
-@Log(title='用户退出', business_type=BusinessType.OTHER, log_type='operation')
+@Log(title='退出登录', business_type=BusinessType.OTHER, log_type='operation')
 async def logout(request: Request, token: Optional[str] = Depends(oauth2_scheme)):
     payload = jwt.decode(
         token, JwtConfig.jwt_secret_key, algorithms=[JwtConfig.jwt_algorithm], options={'verify_exp': False}

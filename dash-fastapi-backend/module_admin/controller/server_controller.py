@@ -15,10 +15,7 @@ serverController = APIRouter(prefix='/monitor/server', dependencies=[Depends(Log
 )
 async def get_monitor_server_info(request: Request):
     # 获取全量数据
-    try:
-        server_info_query_result = await ServerService.get_server_monitor_info()
-        logger.info('获取成功')
-    except Exception as e:
-        logger.info('获取失败')
-        server_info_query_result = {}
+    server_info_query_result = await ServerService.get_server_monitor_info()
+    logger.info('获取成功')
+
     return ResponseUtil.success(data=server_info_query_result)
